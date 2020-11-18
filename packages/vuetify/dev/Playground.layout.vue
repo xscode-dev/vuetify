@@ -1,16 +1,19 @@
 <template>
   <div>
-    <v-layout :layout="layout" full-height>
+    <v-layout :layout="['drawer1', 'toolbar', 'drawer2', 'foo', 'foo2']" :overlaps="['foo:drawer1']" full-height>
       <v-navigation-drawer id="drawer1" :width="width" v-if="remove" v-model="show">nav</v-navigation-drawer>
       <v-navigation-drawer id="drawer2" right>nav</v-navigation-drawer>
       <v-app-bar id="toolbar" v-model="bar">toolbar</v-app-bar>
+      <v-layout-item id="foo" :size="200" position="bottom">foo</v-layout-item>
+      <v-layout-item id="foo2" :size="200" position="top">foo</v-layout-item>
+      <!-- <v-footer id="innerfoot">inner footer</v-footer> -->
       <v-content>
         <button @click="bar = !bar">toggle bar</button>
         <button @click="show = !show">toggle nav</button>
         <button @click="remove = !remove">remove bar</button>
         <button @click="toggle">reverse</button>
-        zxc
-        <v-layout :layout="['bar', 'innerfoot', 'foo']" :style="{ margin: '100px' }">
+
+        <!-- <v-layout :layout="['bar', 'innerfoot', 'foo']" :style="{ margin: '100px' }">
           <v-navigation-drawer id="bar" v-model="inner" temporary>inner drawer</v-navigation-drawer>
           <v-app-bar id="foo">inner bar</v-app-bar>
           <v-footer id="innerfoot">inner footer</v-footer>
@@ -18,9 +21,19 @@
             asdasdzxczxc
             <button @click="inner = !inner">inner</button>
           </v-content>
-        </v-layout>
+        </v-layout> -->
       </v-content>
     </v-layout>
+    <!-- zxc
+    <v-layout :layout="['bar', 'innerfoot', 'foo']" :style="{ margin: '100px' }">
+      <v-navigation-drawer id="bar" v-model="inner" temporary>inner drawer</v-navigation-drawer>
+      <v-app-bar id="foo">inner bar</v-app-bar>
+      <v-footer id="innerfoot">inner footer</v-footer>
+      <v-content>
+        asdasdzxczxc
+        <button @click="inner = !inner">inner</button>
+      </v-content>
+    </v-layout> -->
     <!-- <v-layout full-height>
       <v-app-bar id="system-bar">system bar</v-app-bar>
       <v-navigation-drawer id="servers" :width="96">servers</v-navigation-drawer>

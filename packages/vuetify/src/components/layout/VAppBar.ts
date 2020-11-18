@@ -1,5 +1,5 @@
 import { randomHexColor } from '../../util/helpers'
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import { useLayout } from './VLayout'
 
 export const VAppBar = defineComponent({
@@ -19,7 +19,7 @@ export const VAppBar = defineComponent({
     },
   },
   setup (props, { slots }) {
-    const styles = useLayout(props.id, computed(() => props.modelValue ? props.height : 0), 'top')
+    const styles = useLayout(props.id, computed(() => props.modelValue ? props.height : 0), ref('top'))
     const background = randomHexColor()
 
     return () => h('div', {

@@ -5,12 +5,14 @@ import { VuetifyLayoutKey } from './VLayout'
 export const VContent = defineComponent({
   name: 'VContent',
   setup (_, { slots }) {
-    const { padding } = inject(VuetifyLayoutKey)
+    const layout = inject(VuetifyLayoutKey)
+    if (!layout) throw new Error('Foo!')
+
     const background = randomHexColor()
 
     return () => h('div', {
       style: {
-        padding: padding.value,
+        padding: layout.padding.value,
         display: 'flex',
         flex: '1 0 auto',
         width: '100%',
