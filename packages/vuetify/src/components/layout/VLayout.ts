@@ -11,7 +11,7 @@ interface LayoutProvide {
 
 export const VuetifyLayoutKey: InjectionKey<LayoutProvide> = Symbol.for('vuetify-layout')
 
-export const useLayout = (id: string, amount: Ref<number>, position: Ref<Position>) => {
+export function useLayout (id: string, amount: Ref<number>, position: Ref<Position>) {
   const layout = inject(VuetifyLayoutKey)
 
   if (!layout) throw new Error('No layout!')
@@ -52,8 +52,7 @@ const generateLayers = (
 
   return layers
 }
-
-export const createLayout = (layout: Ref<string[]>, overlaps: Ref<string[]>) => {
+export function createLayout (layout: Ref<string[]>, overlaps: Ref<string[]>) {
   const registered = ref<string[]>([])
   const positions = new Map<string, Ref<Position>>()
   const amounts = new Map<string, Ref<number>>()
@@ -131,32 +130,34 @@ export const createLayout = (layout: Ref<string[]>, overlaps: Ref<string[]>) => 
   })
 }
 
-export const VLayout = defineComponent({
-  name: 'VLayout',
-  props: {
-    layout: {
-      type: Array,
-      default: () => ([]),
-    } as Prop<string[]>,
-    overlaps: {
-      type: Array,
-    } as Prop<string[]>,
-    fullHeight: Boolean,
-  },
-  setup (props, { slots }) {
-    const layout = computed(() => props.layout ?? [])
-    const overlaps = computed(() => props.overlaps ?? [])
-    createLayout(layout, overlaps)
+export function VLayout () {
+  defineComponent({
+    name: 'VLayout',
+    props: {
+      layout: {
+        type: Array,
+        default: () => ([]),
+      } as Prop<string[]>,
+      overlaps: {
+        type: Array,
+      } as Prop<string[]>,
+      fullHeight: Boolean,
+    },
+    setup (props, { slots }) {
+      const layout = computed(() => props.layout ?? [])
+      const overlaps = computed(() => props.overlaps ?? [])
+      createLayout(layout, overlaps)
 
-    return () => h('div', {
-      style: {
-        position: 'relative',
-        display: 'flex',
-        flex: '1 1 auto',
-        height: props.fullHeight ? '100vh' : undefined,
-        overflow: 'hidden',
-        zIndex: 0,
-      },
-    }, slots.default?.())
-  },
-})
+      return () => h('div', {
+        style: {
+          position: 'relative',
+          display: 'flex',
+          flex: '1 1 auto',
+          height: props.fullHeight ? '100vh' : undefined,
+          overflow: 'hidden',
+          zIndex: 0,
+        },
+      }, slots.default?.())
+    },
+  })
+}
