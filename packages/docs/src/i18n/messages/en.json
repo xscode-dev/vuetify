@@ -194,5 +194,7 @@
   "view-in-github": "View on GitHub",
   "view-source": "View source",
   "viewport": "Viewport",
-  "vuetify": "Vuetify"
+  "vuetify": "Vuetify",
+  "vuetify-support": "Vuetify Support",
+  "xscode": "Chat with an expert"
 }
